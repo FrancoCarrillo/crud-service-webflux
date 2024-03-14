@@ -20,9 +20,9 @@ public class Exchange {
     private Double originAmount;
     private Double destinationAmount;
 
-    private UserAccount user;
+    private Long userId;
 
-    private ExchangeType exchangeType;
+    private Long exchangeTypeId;
 
     private LocalDateTime createdDate;
 }

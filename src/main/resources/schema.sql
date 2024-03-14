@@ -1,32 +1,3 @@
-CREATE TABLE IF NOT EXISTS currency (
-    id BIGINT NOT NULL AUTO_INCREMENT,
-    name VARCHAR(255),
-    PRIMARY KEY (id)
-);
-
-CREATE TABLE exchange_type (
-    id BIGINT NOT NULL AUTO_INCREMENT,
-    exchangeRate DOUBLE,
-    originCurrency_id BIGINT,
-    destinationCurrency_id BIGINT,
-    PRIMARY KEY (id),
-    FOREIGN KEY (originCurrency_id) REFERENCES currency(id),
-    FOREIGN KEY (destinationCurrency_id) REFERENCES currency(id)
-);
-
-CREATE TABLE exchange (
-    id BIGINT NOT NULL AUTO_INCREMENT,
-    originAmount DOUBLE,
-    destinationAmount DOUBLE,
-    user_id BIGINT,
-    exchangeType_id BIGINT,
-    createdDate DATETIME,
-    PRIMARY KEY (id),
-    FOREIGN KEY (user_id) REFERENCES user_account(id),
-    FOREIGN KEY (exchangeType_id) REFERENCES exchange_type(id)
-);
-
-
 CREATE TABLE IF NOT EXISTS role (
     id BIGINT NOT NULL AUTO_INCREMENT,
     name VARCHAR(255),
@@ -50,6 +21,35 @@ CREATE TABLE IF NOT EXISTS  user_rol (
     FOREIGN KEY (user_id) REFERENCES user_account(id),
     FOREIGN KEY (rol_id) REFERENCES role(id)
 );
+
+CREATE TABLE IF NOT EXISTS currency (
+    id BIGINT NOT NULL AUTO_INCREMENT,
+    name VARCHAR(255),
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE IF NOT EXISTS exchange_type (
+    id BIGINT NOT NULL AUTO_INCREMENT,
+    exchange_rate DOUBLE,
+    origin_currency_id BIGINT,
+    destination_currency_id BIGINT,
+    PRIMARY KEY (id),
+    FOREIGN KEY (origin_currency_id) REFERENCES currency(id),
+    FOREIGN KEY (destination_currency_id) REFERENCES currency(id)
+);
+
+CREATE TABLE IF NOT EXISTS exchange (
+    id BIGINT NOT NULL AUTO_INCREMENT,
+    origin_Amount DOUBLE,
+    destination_amount DOUBLE,
+    user_id BIGINT,
+    exchange_type_id BIGINT,
+    created_date DATETIME,
+    PRIMARY KEY (id),
+    FOREIGN KEY (user_id) REFERENCES user_account(id),
+    FOREIGN KEY (exchange_type_id) REFERENCES exchange_type(id)
+);
+
 
 
 INSERT INTO role (name) VALUES ('ADMIN');
