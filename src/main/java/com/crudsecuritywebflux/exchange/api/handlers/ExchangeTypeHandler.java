@@ -4,6 +4,7 @@ import com.crudsecuritywebflux.exchange.api.model.request.UpdateCreateExchangeTy
 import com.crudsecuritywebflux.exchange.core.entities.ExchangeType;
 import com.crudsecuritywebflux.exchange.infrastructure.interfaces.IExchangeTypeService;
 import com.crudsecuritywebflux.shared.models.response.MessageResponse;
+import com.crudsecuritywebflux.shared.validation.ObjectValidator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -19,6 +20,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON;
 public class ExchangeTypeHandler {
 
     private final IExchangeTypeService exchangeTypeService;
+    private final ObjectValidator objectValidator;
 
     public Mono<ServerResponse> findById(ServerRequest request) {
 
@@ -32,7 +34,8 @@ public class ExchangeTypeHandler {
 
     public Mono<ServerResponse> create(ServerRequest request) {
 
-        Mono<UpdateCreateExchangeTypeRequest> exchangeType = request.bodyToMono(UpdateCreateExchangeTypeRequest.class);
+        Mono<UpdateCreateExchangeTypeRequest> exchangeType = request.bodyToMono(UpdateCreateExchangeTypeRequest.class)
+                .doOnNext(objectValidator::validate);
 
         return exchangeType.flatMap(exType -> ServerResponse.ok()
                 .contentType(APPLICATION_JSON)
@@ -42,7 +45,8 @@ public class ExchangeTypeHandler {
     public Mono<ServerResponse> update(ServerRequest request) {
 
         Long exchangeTypeId = Long.valueOf(request.pathVariable("id"));
-        Mono<UpdateCreateExchangeTypeRequest> exchangeType = request.bodyToMono(UpdateCreateExchangeTypeRequest.class);
+        Mono<UpdateCreateExchangeTypeRequest> exchangeType = request.bodyToMono(UpdateCreateExchangeTypeRequest.class)
+                .doOnNext(objectValidator::validate);
 
         return exchangeType.flatMap(exType -> ServerResponse.ok()
                 .contentType(APPLICATION_JSON)

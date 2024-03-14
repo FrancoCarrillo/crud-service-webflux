@@ -2,6 +2,7 @@ package com.crudsecuritywebflux.exchange.core.entities;
 
 import com.crudsecuritywebflux.security.core.entities.UserAccount;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
@@ -12,6 +13,7 @@ import java.time.LocalDateTime;
 @Table
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Data
 public class Exchange {
     @Id

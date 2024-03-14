@@ -41,7 +41,9 @@ public class ExchangeTypeService implements IExchangeTypeService {
                                     .build();
 
                             return exchangeTypeRepository.save(exchangeType)
-                                    .map(exchangeType1 -> new MessageResponse("Exchange type created successfully"));
+                                    .thenReturn(MessageResponse.builder()
+                                            .message("Exchange type created successfully")
+                                            .build());
                         }));
     }
 
@@ -59,7 +61,9 @@ public class ExchangeTypeService implements IExchangeTypeService {
                                     exchangeType.setDestinationCurrencyId(destinationCurrency.getId());
 
                                     return exchangeTypeRepository.save(exchangeType)
-                                            .map(exchangeType1 -> new MessageResponse("Exchange type updated successfully"));
+                                            .thenReturn(MessageResponse.builder()
+                                                    .message("Exchange type updated successfully")
+                                                    .build());
                                 })));
     }
 }

@@ -1,15 +1,15 @@
 package com.crudsecuritywebflux.exchange.api.model.request;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+
+import javax.validation.constraints.Min;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
-@Setter
+@Data
 public class UpdateCreateExchangeTypeRequest {
+
+    @Min(value = 0, message = "Exchange rate must be greater than 0")
     private Double exchangeRate;
     private Long originCurrencyId;
     private Long destinationCurrencyId;

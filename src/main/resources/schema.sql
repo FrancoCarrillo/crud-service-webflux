@@ -59,3 +59,7 @@ INSERT INTO currency (name) VALUES ('PEN');
 INSERT INTO currency (name) VALUES ('USD');
 INSERT INTO currency (name) VALUES ('EUR');
 
+
+INSERT INTO user_account (username, names, lastNames, email, password)
+VALUES ('francocg', 'Franco', 'Carrillo', 'frcg2424@hotmail.com', 'string');
+
