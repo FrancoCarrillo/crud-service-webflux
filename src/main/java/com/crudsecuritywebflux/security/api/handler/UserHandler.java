@@ -5,6 +5,7 @@ import com.crudsecuritywebflux.security.api.model.request.LoginRequest;
 import com.crudsecuritywebflux.security.api.model.response.LoginResponse;
 import com.crudsecuritywebflux.security.core.entities.UserAccount;
 import com.crudsecuritywebflux.security.infrastructure.services.UserService;
+import com.crudsecuritywebflux.shared.validation.ObjectValidator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
@@ -19,9 +20,11 @@ import reactor.core.publisher.Mono;
 public class UserHandler  {
 
     private final UserService userService;
+    private final ObjectValidator objectValidator;
 
     public Mono<ServerResponse> login(ServerRequest request) {
-        Mono<LoginRequest> loginRequest = request.bodyToMono(LoginRequest.class);
+        Mono<LoginRequest> loginRequest = request.bodyToMono(LoginRequest.class)
+                .doOnNext(objectValidator::validate);
 
         return loginRequest
                 .flatMap(res -> ServerResponse.ok()
@@ -30,7 +33,8 @@ public class UserHandler  {
     }
 
     public Mono<ServerResponse> create(ServerRequest request) {
-        Mono<CreateUserRequest> loginRequest = request.bodyToMono(CreateUserRequest.class);
+        Mono<CreateUserRequest> loginRequest = request.bodyToMono(CreateUserRequest.class)
+                .doOnNext(objectValidator::validate);
 
         return loginRequest
                 .flatMap(res -> ServerResponse.ok()

@@ -6,6 +6,7 @@ import com.crudsecuritywebflux.shared.models.response.MessageResponse;
 import com.crudsecuritywebflux.shared.validation.ObjectValidator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
@@ -19,6 +20,7 @@ public class ExchangeHandler {
     private final IExchangeService exchangeService;
     private final ObjectValidator objectValidator;
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public Mono<ServerResponse> create(ServerRequest request) {
         Mono<CreateExchangeRequest> exchange = request.bodyToMono(CreateExchangeRequest.class)
                 .doOnNext(objectValidator::validate);
