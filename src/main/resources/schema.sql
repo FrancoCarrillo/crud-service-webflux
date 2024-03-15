@@ -8,9 +8,12 @@ CREATE TABLE IF NOT EXISTS  user_account (
     id BIGINT NOT NULL AUTO_INCREMENT,
     username VARCHAR(255),
     names VARCHAR(255),
-    lastNames VARCHAR(255),
+    lastnames VARCHAR(255),
     email VARCHAR(255),
     password VARCHAR(255),
+    roles VARCHAR(255),
+    UNIQUE (username),
+    UNIQUE (email),
     PRIMARY KEY (id)
 );
 
@@ -59,7 +62,4 @@ INSERT INTO currency (name) VALUES ('PEN');
 INSERT INTO currency (name) VALUES ('USD');
 INSERT INTO currency (name) VALUES ('EUR');
 
-
-INSERT INTO user_account (username, names, lastNames, email, password)
-VALUES ('francocg', 'Franco', 'Carrillo', 'frcg2424@hotmail.com', 'string');
 
